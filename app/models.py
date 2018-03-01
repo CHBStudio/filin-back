@@ -24,7 +24,7 @@ class Company(Model):
         verbose_name = 'арендатор'
         verbose_name_plural = 'арендаторы'
 
-    name = models.CharField(max_length=255, default='default', verbose_name='Имя арендатора')
+    name = models.CharField(max_length=255, verbose_name='Имя арендатора')
     link = models.CharField(blank=True, null=True, max_length=255, verbose_name='Сайт')
     description = models.TextField(verbose_name='Описание')
     phone = models.CharField(max_length=255, verbose_name='Телефон')
