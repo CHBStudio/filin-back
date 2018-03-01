@@ -17,11 +17,13 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
 
-from app.views import LandingView, ProductView, ServiceView
+from app.views import LandingView, ProductView, ServiceView, LeaseView, TypesView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('^landing/get', LandingView.as_view()),
-    url('^api/products', ProductView.as_view()),
-    url('^api/service', ServiceView.as_view()),
+    url('^landing', LandingView.as_view()),
+    url('^products', ProductView.as_view()),
+    url('^services', ServiceView.as_view()),
+    url('^offers', LeaseView.as_view()),
+    url('^product_service_types', TypesView.as_view()),
 ]
