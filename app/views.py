@@ -33,6 +33,8 @@ class ProductView(NoCSRFView):
         if type_id != 'all' and type_id:
             type = ProductService.objects.get(id=type_id)
             q = Q(tags__in=[type])
+        else:
+            q = Q(tags__type=0)
         data = []
         floors = sorted(list(Company.objects.all().values_list('floor', flat=True).distinct()))
 
@@ -51,10 +53,11 @@ class ServiceView(NoCSRFView):
 
     def get(self, request):
         type_id = request.GET.get('type')
-        q = Q()
-        if type_id != 'all':
+        if type_id != 'all' and type_id:
             type = ProductService.objects.get(id=type_id)
             q = Q(tags__in=[type])
+        else:
+            q = Q(tags__type=1)
         data = []
         floors = sorted(list(Company.objects.all().values_list('floor', flat=True).distinct()))
 
