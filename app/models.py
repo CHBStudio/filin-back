@@ -12,11 +12,12 @@ class ProductService(Model):
         verbose_name = 'Товар или услуга'
         verbose_name_plural = 'Товар или услуги'
 
-    photo = models.ImageField(upload_to='images', default=None, verbose_name='Иконка')
+    photo = models.ImageField(upload_to='images', default=None,null=True, blank=True, verbose_name='Иконка')
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание')
     show = models.BooleanField(default=False, verbose_name='Показывать?')
     type = models.IntegerField(choices=TYPES, verbose_name='Тип', default=1)
+    order = models.IntegerField(blank=True, null=True, verbose_name='Порядок')
 
     def __str__(self):
         return self.title
@@ -44,13 +45,14 @@ class Lease(Model):
         verbose_name = 'аренда'
         verbose_name_plural = 'аренды'
 
-    photo = models.ImageField(upload_to='images', default=None, verbose_name='Фото')
+    photo = models.ImageField(upload_to='images', default=None, null=True, blank=True, verbose_name='Фото')
     square = models.FloatField(verbose_name='Площадь')
     cost = models.IntegerField(verbose_name='Цена')
     floor = models.IntegerField(verbose_name='Этаж')
     housing = models.IntegerField(blank=True, null=True, verbose_name='Корпус')
     function = models.TextField(verbose_name='Назначение')
     show = models.BooleanField(default=False, verbose_name='Показывать?')
+    order = models.IntegerField(blank=True, null=True, verbose_name='Порядок')
 
     def __str__(self):
         return '{}, {}, {}'.format(str(self.square), str(self.floor), str(self.cost))
