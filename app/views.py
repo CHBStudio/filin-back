@@ -1,4 +1,5 @@
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -31,7 +32,10 @@ class ProductView(NoCSRFView):
         type_id = request.GET.get('type')
         q = Q()
         if type_id != 'all' and type_id:
-            type = ProductService.objects.get(id=type_id)
+            try:
+                type = ProductService.objects.get(id=type_id)
+            except ProductService.DoesNotExist:
+                raise NotFound
             q = Q(tags__in=[type])
         else:
             q = Q(tags__type=0)
@@ -54,7 +58,10 @@ class ServiceView(NoCSRFView):
     def get(self, request):
         type_id = request.GET.get('type')
         if type_id != 'all' and type_id:
-            type = ProductService.objects.get(id=type_id)
+            try:
+                type = ProductService.objects.get(id=type_id)
+            except ProductService.DoesNotExist:
+                raise NotFound
             q = Q(tags__in=[type])
         else:
             q = Q(tags__type=1)
