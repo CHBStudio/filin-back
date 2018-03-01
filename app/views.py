@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from app.models import ProductService, Lease, Company
-from app.serializers import CompanySerializer, LeaseSerializer
+from app.serializers import CompanySerializer, LeaseSerializer, ProductServiceSerializer
 from django.db.models import Q
 
 
@@ -87,7 +87,7 @@ class TypesView(NoCSRFView):
         product_types = ProductService.objects.filter(type=0)
         service_types = ProductService.objects.filter(type=1)
         return Response(data={
-            'service_types': service_types,
-            'product_types': product_types
+            'service_types': ProductServiceSerializer(service_types,many=True).data,
+            'product_types': ProductServiceSerializer(product_types,many=True).data
 
         })
