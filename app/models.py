@@ -12,12 +12,8 @@ class ProductService(Model):
         verbose_name = 'Товар или услуга'
         verbose_name_plural = 'Товар или услуги'
 
-    photo = models.ImageField(upload_to='images', default=None,null=True, blank=True, verbose_name='Иконка')
     title = models.CharField(max_length=255, verbose_name='Заголовок')
-    description = models.TextField(verbose_name='Описание')
-    show = models.BooleanField(default=False, verbose_name='Показывать?')
     type = models.IntegerField(choices=TYPES, verbose_name='Тип', default=1)
-    order = models.IntegerField(blank=True, null=True, verbose_name='Порядок')
 
     def __str__(self):
         return self.title

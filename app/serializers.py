@@ -4,16 +4,6 @@ from rest_framework import serializers
 class ProductServiceSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=255, required=True)
-    description = serializers.CharField(max_length=1000, required=True)
-    photo = serializers.SerializerMethodField('get_mediaphoto')
-    show = serializers.BooleanField()
-    order = serializers.IntegerField(read_only=True)
-
-
-    def get_mediaphoto(self, obj):
-        if obj.photo:
-            return obj.photo.url[1:]
-        return None
 
 
 class CompanySerializer(serializers.Serializer):

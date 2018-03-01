@@ -21,8 +21,8 @@ class LeaseAdmin(admin.ModelAdmin):
 
 
 class ProductServiceAdmin(admin.ModelAdmin):
-    list_display = ('photo', 'title', 'description', 'show', 'type', 'order')
-    fields = ('photo', 'title', 'description', 'show', 'type', 'order')
+    list_display = ('title','type')
+    fields = ('title', 'type')
     list_filter = ('type',)
 
 
