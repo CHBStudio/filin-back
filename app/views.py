@@ -84,7 +84,7 @@ class LeaseView(NoCSRFView):
     def get(self, request):
         leases = Lease.objects.all().order_by('order')
         return Response(data={
-            'leases': LeaseSerializer(leases).data
+            'leases': LeaseSerializer(leases, many=True).data
         })
 
 
@@ -94,7 +94,7 @@ class TypesView(NoCSRFView):
         product_types = ProductService.objects.filter(type=0)
         service_types = ProductService.objects.filter(type=1)
         return Response(data={
-            'service_types': ProductServiceSerializer(service_types,many=True).data,
-            'product_types': ProductServiceSerializer(product_types,many=True).data
+            'service_types': ProductServiceSerializer(service_types, many=True).data,
+            'product_types': ProductServiceSerializer(product_types, many=True).data
 
         })
