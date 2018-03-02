@@ -84,7 +84,7 @@ class LeaseView(NoCSRFView):
     def get(self, request):
         leases = Lease.objects.all().order_by('order')
         return Response(data={
-            'leases': LeaseSerializer(leases, many=True).data
+            'offers': LeaseSerializer(leases, many=True).data
         })
 
 
