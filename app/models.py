@@ -57,4 +57,4 @@ class Lease(Model):
 
 class Photo(Model):
     photo = models.ImageField(upload_to='images', default=None, verbose_name='Фото')
-    lease = models.ForeignKey(Lease, on_delete='CASCADE')
+    lease = models.ForeignKey(Lease, on_delete=models.CASCADE)
