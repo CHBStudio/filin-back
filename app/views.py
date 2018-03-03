@@ -43,10 +43,11 @@ class ProductView(NoCSRFView):
 
         for fl in floors:
             companies = Company.objects.filter(q, floor=fl).order_by('floor').distinct()
-            data.append({
-                'floor': fl,
-                'data': CompanySerializer(companies, many=True).data
-            })
+            if len(companies) > 0:
+                data.append({
+                    'floor': fl,
+                    'data': CompanySerializer(companies, many=True).data
+                })
         return Response(data={
             'data': data
         })
@@ -69,10 +70,11 @@ class ServiceView(NoCSRFView):
 
         for fl in floors:
             companies = Company.objects.filter(q, floor=fl).order_by('floor').distinct()
-            data.append({
-                'floor': fl,
-                'data': CompanySerializer(companies, many=True).data
-            })
+            if len(companies) > 0:
+                data.append({
+                    'floor': fl,
+                    'data': CompanySerializer(companies, many=True).data
+                })
         return Response(data={
             'data': data
         })
