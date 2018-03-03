@@ -15,6 +15,7 @@ class CompanySerializer(serializers.Serializer):
     description = serializers.CharField(max_length=1000, required=True)
     phone = serializers.CharField(max_length=1000, required=True)
     housing = serializers.IntegerField(required=False)
+    pavilion = serializers.CharField(max_length=1000, required=True)
     floor = serializers.IntegerField(required=False)
     tags = serializers.SerializerMethodField('get_tagslist')
 
@@ -33,14 +34,17 @@ class LeaseSerializer(serializers.Serializer):
     function = serializers.CharField(max_length=255, required=True)
     show = serializers.BooleanField()
     order = serializers.IntegerField(required=False)
-    photos = serializers.SerializerMethodField('get_photos')
+    photos = serializers.SerializerMethodField('get_mediaphotos')
 
     def get_mediaphoto(self, obj):
         if obj.main_photo:
-            return obj.main_photo.url[1:]
+            return obj.main_photo.url
         return None
 
-    def get_photos(self, obj):
+    def get_mediaphotos(self, obj):
         photos = Photo.objects.filter(lease=obj)
-        if len(obj.photos) > 0:
-            return [ph.photo for ph in photos]
+        if len(photos) > 0:
+            photos = [ph.photo.url for ph in photos]
+            return photos
+        else:
+            return []

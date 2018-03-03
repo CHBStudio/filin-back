@@ -10,8 +10,8 @@ class PhotoInline(TabularInline):
 
 
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'link', 'description', 'phone', 'floor', 'housing', 'get_tags')
-    fields = ('name', 'link', 'description', 'phone', 'floor', 'housing', 'tags')
+    list_display = ('name', 'link', 'description', 'phone', 'floor', 'pavilion', 'housing', 'get_tags')
+    fields = ('name', 'link', 'description', 'phone', 'floor', 'pavilion', 'housing', 'tags')
     list_filter = ('floor',)
 
     def get_tags(self, obj):

@@ -29,6 +29,7 @@ class Company(Model):
     description = models.TextField(verbose_name='Описание')
     phone = models.CharField(max_length=255, verbose_name='Телефон')
     floor = models.IntegerField(verbose_name='Этаж')
+    pavilion = models.CharField(max_length=255, blank=True, null=True, verbose_name='Павильон')
     housing = models.IntegerField(blank=True, null=True, verbose_name='Корпус')
     tags = models.ManyToManyField(ProductService, verbose_name='Товары и услуги')
 
