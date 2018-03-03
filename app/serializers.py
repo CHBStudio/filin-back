@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from app.models import Photo
+
 
 class ProductServiceSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -18,12 +20,12 @@ class CompanySerializer(serializers.Serializer):
 
     def get_tagslist(self, obj):
         tags = obj.tags.all()
-        return ProductServiceSerializer(tags,many=True).data
+        return ProductServiceSerializer(tags, many=True).data
 
 
 class LeaseSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    photo = serializers.SerializerMethodField('get_mediaphoto')
+    main_photo = serializers.SerializerMethodField('get_mediaphoto')
     square = serializers.FloatField(required=True)
     cost = serializers.IntegerField(required=True)
     floor = serializers.IntegerField(required=True)
@@ -31,9 +33,14 @@ class LeaseSerializer(serializers.Serializer):
     function = serializers.CharField(max_length=255, required=True)
     show = serializers.BooleanField()
     order = serializers.IntegerField(required=False)
-
+    photos = serializers.SerializerMethodField('get_photos')
 
     def get_mediaphoto(self, obj):
-        if obj.photo:
-            return obj.photo.url[1:]
+        if obj.main_photo:
+            return obj.main_photo.url[1:]
         return None
+
+    def get_photos(self, obj):
+        photos = Photo.objects.filter(lease=obj)
+        if len(obj.photos) > 0:
+            return [ph.photo for ph in photos]

@@ -30,7 +30,6 @@ class ProductView(NoCSRFView):
 
     def get(self, request):
         type_id = request.GET.get('type')
-        q = Q()
         if type_id != 'all' and type_id:
             try:
                 type = ProductService.objects.get(id=type_id)

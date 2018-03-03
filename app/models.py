@@ -41,7 +41,7 @@ class Lease(Model):
         verbose_name = 'аренда'
         verbose_name_plural = 'аренды'
 
-    photo = models.ImageField(upload_to='images', default=None, null=True, blank=True, verbose_name='Фото')
+    main_photo = models.ImageField(upload_to='images', default=None, verbose_name='Главное фото')
     square = models.FloatField(verbose_name='Площадь')
     cost = models.IntegerField(verbose_name='Цена')
     floor = models.IntegerField(verbose_name='Этаж')
@@ -52,3 +52,8 @@ class Lease(Model):
 
     def __str__(self):
         return '{}, {}, {}'.format(str(self.square), str(self.floor), str(self.cost))
+
+
+class Photo(Model):
+    photo = models.ImageField(upload_to='images', default=None, verbose_name='Фото')
+    lease = models.ForeignKey(Lease, on_delete='CASCADE')
