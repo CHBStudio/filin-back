@@ -47,9 +47,9 @@ class Lease(Model):
     cost = models.IntegerField(verbose_name='Цена')
     floor = models.IntegerField(verbose_name='Этаж')
     housing = models.IntegerField(blank=True, null=True, verbose_name='Корпус')
-    function = models.TextField(verbose_name='Назначение')
+    function = models.TextField(blank=True, null=True, verbose_name='Назначение')
     show = models.BooleanField(default=False, verbose_name='Показывать?')
-    order = models.IntegerField(blank=True, null=True, verbose_name='Порядок')
+    order = models.IntegerField(default=1, verbose_name='Порядок')
 
     def __str__(self):
         return '{}, {}, {}'.format(str(self.square), str(self.floor), str(self.cost))
