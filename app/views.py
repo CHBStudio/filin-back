@@ -39,7 +39,8 @@ class ProductView(NoCSRFView):
         else:
             q = Q(tags__type=0)
         data = []
-        floors = sorted(list(Company.objects.all().values_list('floor', flat=True).distinct()))
+        floors = sorted([f if f else 0 for f in Company.objects.all().values_list('floor', flat=True).distinct()])
+        companies_null = Company.objects.filter(floor=None).distinct()
 
         for fl in floors:
             companies = Company.objects.filter(q, floor=fl).order_by('floor').distinct()
@@ -48,6 +49,7 @@ class ProductView(NoCSRFView):
                     'floor': fl,
                     'data': CompanySerializer(companies, many=True).data
                 })
+        data[0]['data'] = data[0]['data'] + CompanySerializer(companies_null, many=True).data
         return Response(data={
             'data': data
         })
