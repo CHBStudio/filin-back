@@ -49,7 +49,8 @@ class ProductView(NoCSRFView):
                     'floor': fl,
                     'data': CompanySerializer(companies, many=True).data
                 })
-        data[0]['data'] = data[0]['data'] + CompanySerializer(companies_null, many=True).data
+        if len(data) > 0:
+            data[0]['data'] = data[0]['data'] + CompanySerializer(companies_null, many=True).data
         return Response(data={
             'data': data
         })
@@ -78,7 +79,8 @@ class ServiceView(NoCSRFView):
                     'floor': fl,
                     'data': CompanySerializer(companies, many=True).data
                 })
-        data[0]['data'] = data[0]['data'] + CompanySerializer(companies_null, many=True).data
+        if len(data) > 0:
+            data[0]['data'] = data[0]['data'] + CompanySerializer(companies_null, many=True).data
 
         return Response(data={
             'data': data
