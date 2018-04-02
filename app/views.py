@@ -40,7 +40,7 @@ class ProductView(NoCSRFView):
             q = Q(tags__type=0)
         data = []
         floors = sorted([f if f else 0 for f in Company.objects.all().values_list('floor', flat=True).distinct()])
-        companies_null = Company.objects.filter(floor=None).distinct()
+        companies_null = Company.objects.filter(q, floor=None).distinct()
 
         for fl in floors:
             companies = Company.objects.filter(q, floor=fl).order_by('floor').distinct()
@@ -70,7 +70,7 @@ class ServiceView(NoCSRFView):
             q = Q(tags__type=1)
         data = []
         floors = sorted([f if f else 0 for f in Company.objects.all().values_list('floor', flat=True).distinct()])
-        companies_null = Company.objects.filter(floor=None).distinct()
+        companies_null = Company.objects.filter(q, floor=None).distinct()
 
         for fl in floors:
             companies = Company.objects.filter(q, floor=fl).order_by('floor').distinct()
